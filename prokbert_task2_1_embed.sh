@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH -p gpu1v100
+#SBATCH --gres=gpu:1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --time=48:00:00
+#SBATCH --output=prokbert_embed_%j.out
+#SBATCH --error=prokbert_embed_%j.err
+
+# Load environment
+module load anaconda3
+source activate prokbert
+
+# Huggingface cache directory
+export HF_HOME=/work/sgk270/prokbert_task2_new/.cache/huggingface
+export CUDA_LAUNCH_BLOCKING=1
+
+# Print environment info
+echo "CUDA available: $(python -c 'import torch; print(torch.cuda.is_available())')"
+echo "CUDA device count: $(python -c 'import torch; print(torch.cuda.device_count())')"
+echo "Python version: $(python --version)"
+echo "PyTorch version: $(python -c 'import torch; print(torch.__version__)')"
+echo "Transformers version: $(python -c 'import transformers; print(transformers.__version__)')"
+
+# Run embedding script
+python /work/sgk270/prokbert_task2_new/prokbert_task2_1_embed.py \
+  --model_name_or_path neuralbioinfo/prokbert-mini-long \
+  --contigs_path /work/sgk270/dnabert2_task2_new/contigs \
+  --full_seqs_path /work/sgk270/dnabert2_task2_new/full_seqs \
+  --output_dir /work/sgk270/prokbert_task2_new/contig_embed \
+  --full_output_dir /work/sgk270/prokbert_task2_new/full_embed \
+  --batch_size 32
