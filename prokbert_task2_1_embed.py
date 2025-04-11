@@ -11,7 +11,9 @@ import sys
 
 @dataclass
 class ModelArguments:
+########################################################################################################
     model_name_or_path: Optional[str] = field(default="neuralbioinfo/prokbert-mini-long")
+########################################################################################################
 
 @dataclass
 class DataArguments:
@@ -61,7 +63,9 @@ def extract_embeddings(model, dataset, tokenizer, output_dir, split_name, batch_
             sequences = [str(s).strip() for s in sequences]
             all_sequence_ids.extend(sequence_ids)
 
+##################################################################################################################
             inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=512)
+##################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
             outputs = model(**inputs)

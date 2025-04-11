@@ -20,7 +20,9 @@ if __name__ == "__main__":
 
 @dataclass
 class ModelArguments:
+#####################################################################################################
     model_name_or_path: Optional[str] = field(default="AIRI-Institute/gena-lm-bert-base-t2t-multi")
+#####################################################################################################
 
 @dataclass
 class DataArguments:
@@ -78,9 +80,11 @@ def extract_embeddings(model, dataset, tokenizer, output_dir, split_name, batch_
             tokens_before = [tokenizer.tokenize(seq) for seq in sequences]
             for tokens in tokens_before:
                 stats['total'] += 1
+##################################################################################################################
                 if len(tokens) > 512:
                     stats['truncated'] += 1
             inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=512)
+##################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
             outputs = model(**inputs)
             if hasattr(outputs, "last_hidden_state"):

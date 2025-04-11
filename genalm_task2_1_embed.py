@@ -12,7 +12,9 @@ from sklearn.preprocessing import LabelEncoder
 
 @dataclass
 class ModelArguments:
+#####################################################################################################
     model_name_or_path: Optional[str] = field(default="AIRI-Institute/gena-lm-bert-base-t2t-multi")
+#####################################################################################################
 
 @dataclass
 class DataArguments:
@@ -61,8 +63,10 @@ def extract_embeddings(model, dataset, tokenizer, output_dir, split_name, batch_
         for sequences, sequence_ids in dataloader:
             sequences = [str(s).strip() for s in sequences]
             all_sequence_ids.extend(sequence_ids)
-
+            
+##################################################################################################################
             inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=512)
+##################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
             outputs = model(**inputs)

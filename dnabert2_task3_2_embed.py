@@ -22,7 +22,9 @@ if __name__ == '__main__':
 
 @dataclass
 class ModelArguments:
+##############################################################################################
     model_name_or_path: Optional[str] = field(default="zhihan1996/DNABERT-2-117M")
+###############################################################################################
 
 @dataclass
 class DataArguments:
@@ -101,10 +103,12 @@ def extract_embeddings(base_model, dataset, tokenizer, output_dir, split_name, b
             tokens_before = [tokenizer.tokenize(seq) for seq in sequences]
             for tokens in tokens_before:
                 stats['total'] += 1
+################################################################################################################
                 if len(tokens) > 2048:
                     stats['truncated'] += 1
 
             inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=2048)
+################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
             outputs = base_model(**inputs)
