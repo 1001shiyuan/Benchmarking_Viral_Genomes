@@ -21,7 +21,7 @@ if __name__ == "__main__":
 @dataclass
 class ModelArguments:
 ##################################################################################################################
-    model_name_or_path: Optional[str] = field(default="neuralbioinfo/prokbert-mini")
+    model_name_or_path: Optional[str] = field(default="neuralbioinfo/prokbert-mini-long")
 ##################################################################################################################
 
 @dataclass
@@ -81,9 +81,9 @@ def extract_embeddings(model, dataset, tokenizer, output_dir, split_name, batch_
             for tokens in tokens_before:
                 stats['total'] += 1
 ##################################################################################################################
-                if len(tokens) > 512:
+                if len(tokens) > 2048:
                     stats['truncated'] += 1
-            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=512)
+            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=2048)
 ##################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
             outputs = model(**inputs)

@@ -64,7 +64,7 @@ def extract_embeddings(model, dataset, tokenizer, output_dir, split_name, batch_
             all_sequence_ids.extend(sequence_ids)
 
 ##################################################################################################################
-            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=512)
+            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=2048)
 ##################################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
