@@ -237,7 +237,9 @@ def main():
     FULL_SEQ_DIR = '/work/sgk270/dnabert2_task2_new/full_embed'
     CONTIG_DIR = '/work/sgk270/dnabert2_task2_new/contig_embed'
     CONTIG_LENGTHS = [500, 1000, 3000, 5000, 10000]
-    THRESHOLDS = {'order': 80, 'family': 60, 'genus': 40}
+##################################################################################################
+    THRESHOLDS = {'order': 40, 'family': 40, 'genus': 40}
+##################################################################################################
 
     taxonomy_dicts = load_metadata()
     label_encoders = create_label_encoders(taxonomy_dicts)
