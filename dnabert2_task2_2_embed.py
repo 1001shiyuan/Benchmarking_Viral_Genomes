@@ -115,10 +115,10 @@ def extract_embeddings(base_model, dataset, tokenizer, output_dir, split_name, b
             for tokens in tokens_before:
                 stats['total'] += 1
 #################################################################################################
-                if len(tokens) > 2048:
+                if len(tokens) > 204800:
                     stats['truncated'] += 1
 
-            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=2048)
+            inputs = tokenizer(sequences, return_tensors='pt', padding=True, truncation=True, max_length=204800)
 #################################################################################################
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
